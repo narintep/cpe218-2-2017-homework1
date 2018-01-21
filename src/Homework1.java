@@ -6,7 +6,8 @@ public class Homework1 {
 	public static Stack<Character> NStack = new Stack<Character>();
 	public static void main(String[] args)
 	{
-		String input = "251-*32*+";
+
+		String input = args[0];
 		for(int i=0;i<input.length();i++)
 		{
 			NStack.add(input.charAt(i))	;
@@ -19,9 +20,10 @@ public class Homework1 {
 
 	}
 
+
 	public static void inorder(Node b)
 	{
-		if (b.Numop == '+' || b.Numop == '-' || b.Numop == '*' || b.Numop == '/')
+		if (b.Operand == '+' || b.Operand == '-' || b.Operand == '*' || b.Operand == '/')
 		{
 
 			if(b!=Tree)
@@ -29,7 +31,7 @@ public class Homework1 {
 				System.out.print("(");
 			}
 			inorder(b.Left);
-			System.out.print(b.Numop);
+			System.out.print(b.Operand);
 			inorder(b.Right);
 			if(b!=Tree)
 			{
@@ -38,7 +40,7 @@ public class Homework1 {
 		}else {
 			if(b!=Tree)
 			{
-				System.out.print(b.Numop);
+				System.out.print(b.Operand);
 			}
 		}
 
@@ -46,7 +48,7 @@ public class Homework1 {
 
 	public static void infix(Node a) {
 
-		if (a.Numop == '+' || a.Numop == '-' || a.Numop == '*' || a.Numop == '/') {
+		if (a.Operand == '+' || a.Operand == '-' || a.Operand == '*' || a.Operand == '/') {
 			a.Right = new Node(NStack.pop());
 			infix(a.Right);
 			a.Left = new Node(NStack.pop());
@@ -57,34 +59,34 @@ public class Homework1 {
 	{
 		Node Left;
 		Node Right;
-		Character Numop;
+		Character Operand;
 
 		public Node(Character b)
 		{
-			Numop =b;
+			Operand =b;
 		}
 	}
 	public static int Calculate(Node b)
 	{
-		if (b.Numop == '+' || b.Numop == '-' || b.Numop == '*' || b.Numop == '/')
+		if (b.Operand == '+' || b.Operand == '-' || b.Operand == '*' || b.Operand == '/')
 		{
-			if(b.Numop == '+')
+			if(b.Operand == '+')
 			{
 				return Calculate(b.Left)+Calculate(b.Right);
 			}
-			if(b.Numop == '-')
+			if(b.Operand == '-')
 			{
 				return Calculate(b.Left)-Calculate(b.Right);
 			}
-			if(b.Numop == '*')
+			if(b.Operand == '*')
 			{
 				return Calculate(b.Left)*Calculate(b.Right);
 			}
-			if(b.Numop == '/')
+			if(b.Operand == '/')
 			{
 				return Calculate(b.Left)/Calculate(b.Right);
 			}
-		}else return Integer.parseInt(b.Numop.toString());
+		}else return Integer.parseInt(b.Operand.toString());
 		return 0;
 
 
